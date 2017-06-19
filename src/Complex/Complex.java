@@ -5,12 +5,12 @@ import static java.lang.Math.*;
 public class Complex {
     public double x;
     public double y;
-
+//заполнение х и у
     public Complex(double _x, double _y) {
         x = _x;
         y = _y;
     }
-
+//заполнение комлексного числа как действительного
     public Complex(double _x) {
         if (_x >= 0) {
             x = sqrt(_x);
@@ -20,7 +20,7 @@ public class Complex {
             y = sqrt(-_x);
         }
     }
-
+//инвертируем знаки
     public Complex invert() {
         if (x != 0)
             x = -x;

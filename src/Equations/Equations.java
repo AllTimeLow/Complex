@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Equations {
-
+    //перегрузка метода squareRoot для того чтобы передать массив
     public Complex[] squareRoot(double[] values) throws Exception {
         if (values.length > 2)
             return squareRoot(values[0], values[1], values[2]);
         else
             throw new Exception("Недостатоно аргументов");
     }
-
+    //перегрузка метода bisquareRoot для того чтобы передать массив
     public Complex[] biSquareRoot(double[] values) throws Exception {
         if (values.length > 2)
             return biSquareRoot(values[0], values[1], values[2]);
