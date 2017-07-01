@@ -5,13 +5,27 @@ import static java.lang.Math.*;
 public class Complex {
     public double x;
     public double y;
-//заполнение х и у
+
+    //заполнение х и у
     public Complex(double _x, double _y) {
-        x = _x;
-        y = _y;
+        x = Correct(_x);
+        y = Correct(_y);
     }
-//заполнение комлексного числа как действительного
+
+    //заполнение комлексного числа как действительного
     public Complex(double _x) {
+        x = Correct(_x);
+        y = 0;
+    }
+
+    private double Correct(double value) {
+        if (value == -0)
+            return 0;
+        else
+            return value;
+    }
+
+    public Complex GetRoot(double _x) {
         if (_x >= 0) {
             x = sqrt(_x);
             y = 0;
@@ -19,8 +33,10 @@ public class Complex {
             x = 0;
             y = sqrt(-_x);
         }
+        return new Complex(x, y);
     }
-//инвертируем знаки
+
+    //инвертируем знаки
     public Complex invert() {
         if (x != 0)
             x = -x;
@@ -44,7 +60,7 @@ public class Complex {
     public Complex div(Complex c) throws Exception {
         if ((c.x != 0) && (c.y != 0))
             return new Complex((x * c.x + y * c.y) / (c.x * c.x + c.y * c.y), (y * c.x - x * c.y) / (c.x * c.x + c.y * c.y));
-        throw new Exception("Знаменатель равен 0");
+        throw new IllegalArgumentException("Аргумент х<=0");
     }
 
     public Double abs() {
@@ -57,7 +73,7 @@ public class Complex {
 
     public Double arg() throws Exception {
         if (x > 0) return atan(y / x);
-        throw new Exception("Аргумент х<=0");
+        throw new IllegalArgumentException("Аргумент х<=0");
 
     }
 

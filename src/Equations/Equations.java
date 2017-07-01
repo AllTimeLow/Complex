@@ -14,17 +14,18 @@ public class Equations {
         if (values.length > 2)
             return squareRoot(values[0], values[1], values[2]);
         else
-            throw new Exception("Недостатоно аргументов");
+            throw new IllegalArgumentException("Недостатоно аргументов");
     }
+
     //перегрузка метода bisquareRoot для того чтобы передать массив
     public Complex[] biSquareRoot(double[] values) throws Exception {
         if (values.length > 2)
             return biSquareRoot(values[0], values[1], values[2]);
         else
-            throw new Exception("Недостатоно аргументов");
+            throw new IllegalArgumentException("Недостатоно аргументов");
     }
 
-    public Complex[] squareRoot(double a, double b, double c) throws Exception{
+    public Complex[] squareRoot(double a, double b, double c) throws Exception {
         Complex res[];
         if (a != 0) {
             double d = b * b - 4 * a * c;
@@ -45,19 +46,22 @@ public class Equations {
                 res[i].y /= 2 * a;
                 res[i].x /= 2 * a;
             }
-        } else if(b!=0) {
+        } else if (b != 0) {
             res = new Complex[]{new Complex(-c / b, 0)};
-        }
-        else{
+        } else {
             throw new Exception("Нет решений!");
         }
         return res;
     }
 
-    public Complex[] biSquareRoot(double _a, double _b, double _c) throws Exception{
+    public Complex[] biSquareRoot(double _a, double _b, double _c) throws Exception {
         Complex result[] = new Complex[4];
         int k = 0;
-        Complex roots[] = squareRoot(_a, _b, _c);
+        Complex roots[];
+        if (_a != 0)
+            roots = squareRoot(_a, _b, _c);
+        else
+            return squareRoot(_b, 0, _c);
         for (int i = 0; i < roots.length; i++) {
             if (roots[i].y != 0) {
                 double a = roots[i].x, b = roots[i].y;
@@ -66,8 +70,9 @@ public class Equations {
                 result[k++] = new Complex(-x, -y);
                 result[k++] = new Complex(x, y);
             } else {
-                result[k++] = new Complex(roots[i].x);
-                result[k++] = new Complex(roots[i].x).invert();
+
+                result[k++] = new Complex(roots[i].x).GetRoot(roots[i].x);
+                result[k++] = new Complex(roots[i].x).GetRoot(roots[i].x).invert();
             }
         }
         return result;
